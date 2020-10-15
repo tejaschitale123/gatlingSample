@@ -1,0 +1,25 @@
+package test.scala
+
+import io.gatling.core.Predef._
+import io.gatling.http.Predef._
+
+  class SampleSimulation extends Simulation{
+
+  //httpProtocol
+  val httpProtocol=http
+    .baseUrl("https://demoblaze.com/")
+    .header("accept","*/*")
+    .acceptHeader("application/json")
+
+  // Scenario
+
+  val scn = scenario("Home Page Scenario")
+    .exec(http("HomePage")
+      .get("/")
+    )
+
+  //Simulation Setup
+  setUp(scn.inject(atOnceUsers(2))).protocols(httpProtocol)
+
+
+}
